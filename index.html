@@ -35,6 +35,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -54,54 +55,137 @@
   }
   .nav-links a:hover { color: var(--ink); }
 
+  /* SECTIONS */
   section { padding: 7rem 4rem; max-width: 1100px; margin: 0 auto; }
   section + section { border-top: 1px solid var(--rule); }
 
+  /* ── HERO ── */
   #home {
     min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding-top: 8rem; padding-bottom: 5rem;
-    max-width: 100%; padding-left: 4rem; padding-right: 4rem;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding-top: 6rem;
+    max-width: 100%;
+    padding-left: 4rem; padding-right: 4rem;
+    padding-bottom: 0;
   }
+
+  .hero-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding-top: 2rem;
+  }
+
+  .hero-left { display: flex; flex-direction: column; }
+
   .hero-eyebrow {
-    font-family: var(--mono); font-size: 12px;
-    letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--accent-mid); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
   }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 24px; height: 1px; background: var(--accent-mid);
+  }
+
   .hero-name {
     font-family: var(--serif);
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-size: clamp(3rem, 6vw, 5.5rem);
     line-height: 1.0; letter-spacing: -0.02em;
-    color: var(--ink); max-width: 900px; margin-bottom: 0.5rem;
+    color: var(--ink); margin-bottom: 0.35rem;
   }
   .hero-name em { font-style: italic; color: var(--accent-mid); }
-  .hero-tagline {
-    font-size: 1.15rem; font-weight: 300; color: var(--ink-mid);
-    max-width: 580px; margin-top: 2rem; margin-bottom: 3rem; line-height: 1.65;
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic; color: var(--ink-light);
+    margin-bottom: 2rem; letter-spacing: 0.01em;
   }
-  .hero-cta {
+
+  .hero-tagline {
+    font-size: 0.975rem; font-weight: 300; color: var(--ink-mid);
+    line-height: 1.75; margin-bottom: 2.5rem;
+    max-width: 420px;
+  }
+
+  .hero-actions { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+
+  .hero-cta-primary {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    font-family: var(--mono); font-size: 12px;
+    font-family: var(--mono); font-size: 11px;
     letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none;
-    border-bottom: 1.5px solid var(--ink); padding-bottom: 2px;
+    color: #fff; background: var(--accent);
+    text-decoration: none; border-radius: 2px;
+    padding: 0.8rem 1.5rem;
+    transition: opacity 0.2s;
+  }
+  .hero-cta-primary:hover { opacity: 0.85; }
+
+  .hero-cta-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-mid); text-decoration: none;
+    border-bottom: 1px solid var(--rule); padding-bottom: 2px;
     transition: color 0.2s, border-color 0.2s;
   }
-  .hero-cta:hover { color: var(--accent-mid); border-color: var(--accent-mid); }
-  .hero-cta svg { transition: transform 0.2s; }
-  .hero-cta:hover svg { transform: translateX(3px); }
-  .hero-bottom {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    flex-wrap: wrap; gap: 2rem;
-  }
-  .hero-stats { display: flex; gap: 3rem; }
-  .hero-stat-label {
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-light); display: block; margin-bottom: 0.2rem;
-  }
-  .hero-stat-value { font-family: var(--serif); font-size: 2rem; line-height: 1; color: var(--ink); }
+  .hero-cta-secondary:hover { color: var(--ink); border-color: var(--ink-mid); }
 
+  /* Hero right — profile photo */
+  .hero-right {
+    position: relative;
+    display: flex; align-items: flex-end; justify-content: center;
+    height: 100%;
+  }
+  .hero-photo-wrap {
+    position: relative;
+    width: 100%; max-width: 380px;
+  }
+  .hero-photo-wrap::before {
+    content: '';
+    position: absolute; inset: -12px -12px 12px 12px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 2px; z-index: 0;
+  }
+  .hero-photo {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover; object-position: top;
+    border-radius: 2px; display: block;
+  }
+
+  /* Hero bottom bar */
+  .hero-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    margin-top: 4rem;
+  }
+  .hero-bar-item {
+    padding: 1.75rem 0;
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .hero-bar-item:last-child { border-right: none; padding-left: 0; }
+  .hero-bar-item:not(:first-child) { padding-left: 2rem; }
+  .hero-bar-label {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .hero-bar-value {
+    font-family: var(--serif); font-size: 1.6rem;
+    line-height: 1.1; color: var(--ink);
+  }
+  .hero-bar-sub {
+    font-size: 12px; font-weight: 300; color: var(--ink-mid);
+  }
+
+  /* SECTION HEADERS */
   .section-label {
     font-family: var(--mono); font-size: 11px;
     letter-spacing: 0.14em; text-transform: uppercase;
@@ -123,7 +207,8 @@
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .about-photo {
     width: 100%; aspect-ratio: 3/4;
-    object-fit: cover; border-radius: 2px; display: block;
+    object-fit: cover; object-position: top;
+    border-radius: 2px; display: block;
   }
   .about-body p { color: var(--ink-mid); margin-bottom: 1.25rem; font-weight: 300; }
   .about-body p strong { color: var(--ink); font-weight: 500; }
@@ -265,10 +350,12 @@
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     section { padding: 5rem 1.5rem; }
-    #home { padding: 8rem 1.5rem 4rem; }
+    #home { padding: 6rem 1.5rem 0; }
+    .hero-main { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-right { display: none; }
+    .hero-bar { grid-template-columns: repeat(2, 1fr); }
     .about-grid, .skills-layout, .contact-layout, .projects-grid { grid-template-columns: 1fr; }
     .project-card.featured { grid-column: span 1; }
-    .hero-stats { gap: 2rem; }
     footer { padding: 1.5rem; }
   }
 </style>
@@ -287,29 +374,54 @@
 
 <!-- HERO -->
 <section id="home">
-  <div class="hero-eyebrow">Graduate Automotive Engineer · MEng (Hons) — Projected First Class</div>
-  <h1 class="hero-name">Jungwoo <em>Son</em></h1>
-  <p class="hero-tagline">Structural simulation, crash analysis and composite modelling — applying FEA to support design decisions under real-world engineering constraints.</p>
-  <div class="hero-bottom">
-    <a class="hero-cta" href="#projects">
-      View projects
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-    <div class="hero-stats">
-      <div>
-        <span class="hero-stat-label">Specialism</span>
-        <span class="hero-stat-value">FEA</span>
+  <div class="hero-main">
+    <div class="hero-left reveal">
+      <div class="hero-eyebrow">Graduate Automotive Engineer</div>
+      <h1 class="hero-name">Jungwoo <em>Son</em></h1>
+      <p class="hero-title">MEng Automotive Engineering — Loughborough University</p>
+      <p class="hero-tagline">Structural simulation, crash analysis and composite modelling. Experienced in applying FEA to support design decisions under real-world constraints, with a strong interest in safety-critical and high-performance engineering.</p>
+      <div class="hero-actions">
+        <a class="hero-cta-primary" href="#projects">
+          View projects
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M2 6.5h9M6.5 2l4.5 4.5-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a class="hero-cta-secondary" href="Jungwoo_Son_CV__Apr_26_.pdf" target="_blank">
+          Download CV
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v7M3 5l3 3 3-3M2 10h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
-      <div>
-        <span class="hero-stat-label">Placement</span>
-        <span class="hero-stat-value">CAE</span>
+    </div>
+    <div class="hero-right reveal">
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="profile_photo.jpg" alt="Jungwoo Son">
       </div>
-      <div>
-        <span class="hero-stat-label">Degree</span>
-        <span class="hero-stat-value">MEng</span>
-      </div>
+    </div>
+  </div>
+
+  <div class="hero-bar reveal">
+    <div class="hero-bar-item">
+      <span class="hero-bar-label">Degree</span>
+      <span class="hero-bar-value">MEng</span>
+      <span class="hero-bar-sub">Projected First Class</span>
+    </div>
+    <div class="hero-bar-item">
+      <span class="hero-bar-label">Placement</span>
+      <span class="hero-bar-value">13 mo.</span>
+      <span class="hero-bar-sub">CAE Engineer, TriMech</span>
+    </div>
+    <div class="hero-bar-item">
+      <span class="hero-bar-label">Specialism</span>
+      <span class="hero-bar-value">FEA</span>
+      <span class="hero-bar-sub">Crash · Composites · NVH</span>
+    </div>
+    <div class="hero-bar-item">
+      <span class="hero-bar-label">Availability</span>
+      <span class="hero-bar-value">2026</span>
+      <span class="hero-bar-sub">Open to opportunities</span>
     </div>
   </div>
 </section>
@@ -318,12 +430,12 @@
 <section id="about">
   <div class="section-label">About</div>
   <div class="about-grid reveal">
-    <img class="about-photo" src="Profile photo.jpg" alt="Jungwoo Son">
+    <img class="about-photo" src="profile_photo.jpg" alt="Jungwoo Son">
     <div class="about-body">
       <h2 class="section-heading">Building the structures that protect lives.</h2>
       <p>MEng Automotive Engineering student at <strong>Loughborough University</strong> (projected First Class), with 13 months of industry experience as a <strong>CAE Engineer at TriMech Simulation Solutions</strong>.</p>
       <p>My work spans the full simulation workflow — from composite material model creation and mesh preparation in ANSA through to explicit crash analysis in LS-DYNA and results presentation in client design reviews. At TriMech I developed a composite door structure satisfying both mass targets and side-impact requirements, and created a validated material model used across crash and NVH programmes.</p>
-      <p>I'm looking for roles in structural or CAE engineering within the automotive or motorsport sectors, where simulation rigour, test correlation and composite design intersect.</p>
+      <p>I'm looking for graduate roles in <strong>structural or FE simulation engineering</strong> — particularly within the automotive industry or broader safety-critical sectors — where simulation rigour, physical test correlation and composite design intersect.</p>
       <div class="about-details">
         <div class="about-detail-row">
           <span class="about-detail-key">Degree</span>
@@ -356,9 +468,8 @@
   <h2 class="section-heading">Selected work.</h2>
   <div class="projects-grid">
 
-    <!-- Featured: FYP -->
     <div class="project-card featured reveal">
-      <img class="project-img" src="FYP image.png" alt="Corrugated Crash Energy Absorber FEA">
+      <img class="project-img" src="FYP_image.png" alt="Corrugated Crash Energy Absorber FEA">
       <div class="project-body">
         <div class="project-tags">
           <span class="tag">Final Year Project</span>
@@ -384,9 +495,8 @@
       </div>
     </div>
 
-    <!-- Project 2: Formula Student -->
     <div class="project-card reveal">
-      <img class="project-img" src="FS body image.png" alt="Formula Student Carbon Fibre Monocoque Chassis">
+      <img class="project-img" src="FS_body_image.png" alt="Formula Student Carbon Fibre Monocoque Chassis">
       <div class="project-body">
         <div class="project-tags">
           <span class="tag">Formula Student</span>
@@ -408,7 +518,6 @@
       </div>
     </div>
 
-    <!-- Project 3: Rescue Vehicle -->
     <div class="project-card reveal">
       <img class="project-img" src="Glaciator_Assembly.png" alt="Concept Rescue Vehicle Chassis">
       <div class="project-body">
@@ -432,9 +541,8 @@
       </div>
     </div>
 
-    <!-- Project 4: TriMech Placement -->
     <div class="project-card reveal">
-      <img class="project-img" src="door image.png" alt="Composite Door Structure Crash and NVH Simulation">
+      <img class="project-img" src="door_image.png" alt="Composite Door Structure Crash and NVH Simulation">
       <div class="project-body">
         <div class="project-tags">
           <span class="tag">Placement</span>
